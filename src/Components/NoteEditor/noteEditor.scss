@@ -13,7 +13,9 @@
 
   .note-editor-container {
     padding: 5px;
-    height: 600px;
+    height: min-content;
+    min-height: 300px;
+    max-height: 600px;
     width: 500px;
     background-color: white;
     border: black solid 1px;

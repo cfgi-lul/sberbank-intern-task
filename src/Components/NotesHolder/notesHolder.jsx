@@ -17,6 +17,12 @@ const NotesHolder = () => {
         }, [notes]
     );
 
+    function confirmEdition(note, index) {
+        let temp = [...notes];
+        temp.splice(index, 1, note);
+        setNotes(temp);
+    }
+
     useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes));
     }, [notes]);
@@ -32,17 +38,12 @@ const NotesHolder = () => {
         setCreateNoteShow(false);
     }
 
-    function confirmEdition() {
-        console.log('confirmEdition');
-    }
-
-    console.log('notes', notes);
     return (
         <div className='notes-holder-wrapper'>
             <button onClick={() => setCreateNoteShow(true)} className='add-note-button'>Add new Note</button>
             <div className='notes-holder'>
                 {notes.map((note, index) =>
-                    <Note confirmDeletion={() => confirmDeletion(index)} confirmEdition={confirmDeletion}
+                    <Note confirmEdition={confirmEdition} index={index} confirmDeletion={() => confirmDeletion(index)}
                           key={index} note={note}/>
                 )}
             </div>

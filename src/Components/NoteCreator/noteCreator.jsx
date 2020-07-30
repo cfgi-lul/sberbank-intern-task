@@ -1,5 +1,6 @@
 import "./noteCreator.scss";
 import React, {useState} from "react";
+import {Task} from "../Task/Task";
 
 const NoteCreator = ({isShown, addNewNote, closeCreateNote}) => {
     const [tasks, setTasks] = useState([]);
@@ -11,12 +12,31 @@ const NoteCreator = ({isShown, addNewNote, closeCreateNote}) => {
         setTasks(temp);
     }
 
+    const onDelete = (index) => {
+        setTasks(tasks.filter((e, i) => i !== index));
+    };
+
+    const onCheckToggler = (index) => {
+        const newTask = [...tasks];
+        newTask[index].isChecked = !newTask[index].isChecked;
+        setTasks(newTask);
+    };
+
+    const onChange = (index) => {
+        const newTasks = [...tasks];
+        return (newTaskName) => {
+            newTasks[index].name = newTaskName;
+            setTasks(newTasks);
+        };
+    };
+
     return (
         <div className={isShown ? 'note-editor-wrapper' : 'hidden'}>
             <div className='note-editor-container'>
                 <div className='note-name'>
                     <p className='note-name-description'>Task name: </p>
                     <input className='note-name-input'
+                           value={noteName}
                            onChange={(event) => setNoteName(event.target.value)}
                            type="text"/>
 
@@ -25,22 +45,20 @@ const NoteCreator = ({isShown, addNewNote, closeCreateNote}) => {
                 <div className='tasks'>
                     {
                         tasks.map((task, index) =>
-                            <div key={index} className='task'>
-                                <input type="checkbox"
-                                       onChange={(event) => task.isChecked = event.target.value}
-                                       className='checkbox'/>
-                                <input type="text" className='task-input'
-                                       onChange={(event) => task.name = event.target.value}
-                                       placeholder='Input your task'/>
-                                <button className='button'>Delete</button>
-                            </div>
+                            <Task key={index}
+                                  task={task}
+                                  onChange={onChange(index)}
+                                  onDelete={() => onDelete(index)}
+                                  onCheckToggler={() => onCheckToggler(index)}/>
                         )
                     }
                 </div>
                 <button onClick={addTask}>Add Task</button>
                 <button onClick={() => {
                     addNewNote({name: noteName, tasks: tasks});
-                    closeCreateNote()
+                    closeCreateNote();
+                    setTasks([]);
+                    setNoteName('');
                 }}>Add Note
                 </button>
             </div>
