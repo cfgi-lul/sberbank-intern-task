@@ -1,0 +1,58 @@
+.note-editor-wrapper {
+  text-align: left;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.36);
+
+  .note-editor-container {
+    padding: 5px;
+    height: 600px;
+    width: 500px;
+    background-color: white;
+    border: black solid 1px;
+    margin: calc(50vh - 300px) auto auto;
+    overflow: scroll;
+
+    .note-name {
+      .note-name-description {
+        font-size: 30px;
+        display: inline;
+      }
+
+      .note-name-input {
+        font-size: 25px;
+      }
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      margin: 7px;
+
+      .checkbox {
+        width: 20px;
+        height: 20px;
+        outline: none;
+      }
+
+      .task-input {
+        font-size: 20px;
+        outline: none;
+      }
+
+      .button {
+        font-size: 20px;
+        background: none;
+        border: none;
+        color: #069;
+        text-decoration: underline;
+        cursor: pointer;
+        outline: none;
+        margin-left: 5px;
+      }
+    }
+  }
+}

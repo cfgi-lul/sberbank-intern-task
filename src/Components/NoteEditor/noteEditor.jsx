@@ -3,8 +3,10 @@ import React from "react";
 
 const NoteEditor = ({isShown}) => {
     return (
-        <div className={isShown ? 'none' : 'note-editor-container'}>
+        <div className={isShown ? 'note-editor-wrapper' : 'hidden'}>
+            <div className='note-editor-container'>
 
+            </div>
         </div>
     )
 };
