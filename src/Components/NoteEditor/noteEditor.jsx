@@ -1,10 +1,15 @@
 import "./noteEditor.scss";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Task} from "../Task/Task";
 
-const NoteEditor = ({note,index, isShown, confirmEdition, closeNoteEditor}) => {
+export const NoteEditor = ({note, index, isShown, confirmEdition, closeNoteEditor}) => {
     const [tasks, setTasks] = useState(note.tasks);
     const [noteName, setNoteName] = useState(note.name);
+
+    useEffect(() => {
+        setNoteName(note.name);
+        setTasks(note.tasks);
+    }, [note]);
 
     const onDelete = (index) => {
         setTasks(tasks.filter((e, i) => i !== index));
@@ -23,7 +28,6 @@ const NoteEditor = ({note,index, isShown, confirmEdition, closeNoteEditor}) => {
             setTasks(newTasks);
         };
     };
-
 
     return (
         <div className={isShown ? 'note-editor-wrapper' : 'hidden'}>
@@ -45,8 +49,7 @@ const NoteEditor = ({note,index, isShown, confirmEdition, closeNoteEditor}) => {
                                   task={task}
                                   onChange={onChange(index)}
                                   onDelete={() => onDelete(index)}
-                                  onCheckToggler={() => onCheckToggler(index)}/>
-                        )
+                                  onCheckToggler={() => onCheckToggler(index)}/>)
                     }
                 </div>
 
@@ -54,18 +57,17 @@ const NoteEditor = ({note,index, isShown, confirmEdition, closeNoteEditor}) => {
                     let temp = [...tasks];
                     temp.push({name: '', tasks: ''});
                     setTasks(temp);
-                }}>
-                    Add Task
+                }}>Add Task
                 </button>
 
                 <button onClick={() => {
                     confirmEdition({name: noteName, tasks: tasks}, index);
                     closeNoteEditor();
-                }}>
-                    Edit Note
+                }}>Edit Note
                 </button>
+
+                <button onClick={closeNoteEditor}>Cancel</button>
             </div>
         </div>
     )
 };
-export default NoteEditor

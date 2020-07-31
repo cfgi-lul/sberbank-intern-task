@@ -1,7 +1,7 @@
 import "./warning.scss";
 import React from "react";
 
-const Warning = ({isShown, confirmDeletion, closeWarning}) => {
+export const Warning = ({isShown, confirmDeletion, closeWarning}) => {
     return (
         <div className={isShown ? 'warning-wrapper' : 'hidden'}>
             <div className='warning-container'>
@@ -14,4 +14,3 @@ const Warning = ({isShown, confirmDeletion, closeWarning}) => {
         </div>
     )
 };
-export default Warning

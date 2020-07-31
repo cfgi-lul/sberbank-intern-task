@@ -1,13 +1,11 @@
 import "./note.scss";
 import React, {useState} from "react";
-import NoteEditor from "../NoteEditor/noteEditor";
-import Warning from "../Warning/warning";
+import {NoteEditor} from "../NoteEditor/noteEditor";
+import {Warning} from "../Warning/warning";
 
-const Note = ({confirmEdition, note, index, confirmDeletion}) => {
+export const Note = ({confirmEdition, note, index, confirmDeletion}) => {
     const [isEditorShown, setEditorShow] = useState(false);
     const [isWarningShown, setWarningShow] = useState(false);
-
-    // const [getNote, setNote] = useState(note);
 
     function closeWarning() {
         setWarningShow(false);
@@ -17,7 +15,6 @@ const Note = ({confirmEdition, note, index, confirmDeletion}) => {
         setEditorShow(false);
     }
 
-
     return (
         <div className='note-container'>
             <div className='navigation-container'>
@@ -25,10 +22,7 @@ const Note = ({confirmEdition, note, index, confirmDeletion}) => {
                     setEditorShow(true)
                 }} className='button'>Edit
                 </button>
-                <button onClick={() => {
-                    setWarningShow(true)
-                }} className='button'>Delete
-                </button>
+                <button onClick={() => setWarningShow(true)} className='button'>Delete</button>
             </div>
             <p className='title'>{note.name}</p>
             <hr className='hr'/>
@@ -41,10 +35,12 @@ const Note = ({confirmEdition, note, index, confirmDeletion}) => {
                     </div>)}
             </div>
             <Warning confirmDeletion={confirmDeletion} closeWarning={closeWarning} isShown={isWarningShown}/>
-            <NoteEditor note={note} index={index} confirmEdition={confirmEdition}
+            <NoteEditor note={JSON.parse(JSON.stringify(note))}
+                        index={index}
+                        confirmEdition={confirmEdition}
                         closeNoteEditor={closeNoteEditor}
                         isShown={isEditorShown}/>
         </div>
     )
 };
-export default Note
+

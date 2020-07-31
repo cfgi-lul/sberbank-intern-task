@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import NotesHolder from './Components/NotesHolder/notesHolder';
+import {NotesHolder} from './Components/NotesHolder/notesHolder';
 
 function App() {
     return (

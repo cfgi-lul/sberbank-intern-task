@@ -2,7 +2,7 @@ import "./noteCreator.scss";
 import React, {useState} from "react";
 import {Task} from "../Task/Task";
 
-const NoteCreator = ({isShown, addNewNote, closeCreateNote}) => {
+export const NoteCreator = ({isShown, addNewNote, closeCreateNote}) => {
     const [tasks, setTasks] = useState([]);
     const [noteName, setNoteName] = useState('');
 
@@ -61,8 +61,13 @@ const NoteCreator = ({isShown, addNewNote, closeCreateNote}) => {
                     setNoteName('');
                 }}>Add Note
                 </button>
+                <button onClick={() => {
+                    closeCreateNote();
+                    setTasks([]);
+                    setNoteName('');
+                }}>Cancel
+                </button>
             </div>
         </div>
     )
 };
-export default NoteCreator
